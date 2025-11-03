@@ -1,0 +1,7 @@
+if(!empty($phone)){ SendSmsJob::dispatch($sms, $phone)->onQueue('sms_queue');}
+php artisan queue:work --queue=sms_queue
+php artisan queue:table
+php artisan queue:batches-table
+
+php artisan make:factory ProjectFactory --model=Project
+php artisan db:seed

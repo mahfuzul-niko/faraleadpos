@@ -256,7 +256,7 @@ class LeadInfoController extends Controller
     public function store(Request $request)
     {
         //return $request;
-
+        
         if (User::checkPermission('lead.add') == true) {
             $validator = Validator::make($request->all(), [
                 'lead_created_date' => 'required',

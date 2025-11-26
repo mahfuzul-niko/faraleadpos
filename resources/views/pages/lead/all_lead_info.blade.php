@@ -10,6 +10,7 @@
         ['id' => 3, 'name' => 'Sale'],
         ['id' => 4, 'name' => 'Cancel'],
         ['id' => 5, 'name' => 'Flowup'],
+        ['id' => 6, 'name' => 'Pending'],
     ];
 
     $crm = App\Models\User::where(['type'=>'crm', 'is_active'=>1])->get(['id','name']);

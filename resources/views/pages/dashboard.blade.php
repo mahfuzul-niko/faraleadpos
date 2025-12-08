@@ -188,7 +188,7 @@
                         @php( $date = date('Y-m-d', strtotime('+'.$i.' days')))
                         @php( $installation_count = DB::table('sales')->where('installer_id',"!=","")->where('installation_date', 'like', '%'.$date.'%')->count('id'))
                         <div class="row border-bottom mb-2">
-                            <div class="col-md-6 col-6 text-center"><a href="{{route('admin.all.lead.info')}}">{{date('d M Y', strtotime($date))}}</a></div>
+                            <div class="col-md-6 col-6 text-center"><a href="{{ route('calendar', $date) }}">{{date('d M Y', strtotime($date))}}</a></div>
                             <div class="col-md-6 col-6 text-center"><h6>{{$installation_count+0}}</h6></div>
                         </div>
                         @php($i++)

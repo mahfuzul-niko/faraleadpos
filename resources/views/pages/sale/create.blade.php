@@ -161,7 +161,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="">Note (optional)</label>
+                            <label for="">Note / Device list (optional)</label>
                             <textarea class="form-control" name="note" id="" cols="30" rows="4">{{ optional($sale)->note }}</textarea>
                             @error('note')
                                 <span class="text-danger">{{ $message }}</span>

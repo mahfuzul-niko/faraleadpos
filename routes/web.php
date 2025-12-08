@@ -28,10 +28,11 @@ Route::group(['middleware' => ['auth', 'UserIsActive']], function () {
 
     Route::get('/dashboard', [Admincontroller::class, 'dashboard'])->name('dashboard');
 
-	//Sale
-	Route::resource('sale', SaleController::class);
-	Route::get('calendar', [SaleController::class,'calendar'])->name('calendar');
-	Route::get('bounce', [SaleController::class,'bounce'])->name('bounce');
+    //Sale
+    Route::resource('sale', SaleController::class);
+    Route::get('calendar/{date?}', [SaleController::class, 'calendar'])->name('calendar');
+
+    Route::get('bounce', [SaleController::class, 'bounce'])->name('bounce');
 
     //Begin::Lead Source Type
     Route::get('/lead-sources', [LeadSourceController::class, 'index'])->name('admin.lead.source.type');
@@ -44,16 +45,15 @@ Route::group(['middleware' => ['auth', 'UserIsActive']], function () {
 
 
     //Begin:: demo file download
-        Route::get('/download/demo/{file_name}', function($file_name = null){
-            $path = public_path().'/images/'.$file_name;
-            if (file_exists($path)) {
-                return Response::download($path);
-            }
-            else {
-                return Redirect()->back()->with('error', 'No such file exist, Please try again.');
-            }
-        })->name('download.demo.file');
-        //End:: demo file download
+    Route::get('/download/demo/{file_name}', function ($file_name = null) {
+        $path = public_path() . '/images/' . $file_name;
+        if (file_exists($path)) {
+            return Response::download($path);
+        } else {
+            return Redirect()->back()->with('error', 'No such file exist, Please try again.');
+        }
+    })->name('download.demo.file');
+    //End:: demo file download
 
 
     //Begin:: Leads
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth', 'UserIsActive']], function () {
     Route::get('/admin/delete-appiontment/{id}', [AppiontmentController::class, 'destroy'])->name('admin.delete.appiontment');
 
     //Begin::SMS Routes
-    Route::group(['prefix'=>'sms','as'=>'sms.'], function(){
+    Route::group(['prefix' => 'sms', 'as' => 'sms.'], function () {
 
         Route::get('/list', [SentSMSController::class, 'index'])->name('index');
         Route::get('/send', [SentSMSController::class, 'create'])->name('create');

@@ -186,7 +186,10 @@ class SaleController extends Controller
     public function edit(Sale $sale)
     {
         if (User::checkPermission('sale.update') == true) {
-            $users = User::where('type', 'crm')->get(['id', 'name']);
+            $users = User::where('type', 'crm')
+                ->where('is_active', 1)
+                ->role('Installation & Training') // Spatie way
+                ->get(['id', 'name']);
             return view('pages.sale.create', compact('sale', 'users'));
         } else {
             return Redirect()->back()->with('error', 'Sorry you can not access this page');

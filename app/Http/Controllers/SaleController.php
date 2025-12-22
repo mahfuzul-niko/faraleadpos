@@ -131,11 +131,16 @@ class SaleController extends Controller
     {
         if (User::checkPermission('sale.add') == true) {
             $sale = 0;
+           
             $users = User::where('type', 'crm')
+                ->where('is_active', 1)
+                ->get(['id', 'name']);
+                
+            $installers = User::where('type', 'crm')
                 ->where('is_active', 1)
                 ->role('Installation & Training') // Spatie way
                 ->get(['id', 'name']);
-            return view('pages.sale.create', compact('sale', 'users'));
+            return view('pages.sale.create', compact('sale', 'users', 'installers'));
         } else {
             return Redirect()->back()->with('error', 'Sorry you can not access this page');
         }

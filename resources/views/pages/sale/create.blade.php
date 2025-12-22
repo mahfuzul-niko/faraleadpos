@@ -125,7 +125,8 @@
 						</div>
 						<div class="form-group col-md-3">
 							<label for="">Install By</label>
-							<select name="installer_id" class="form-control" id="">
+							<select name="installer_id" class="form-control" id="" >
+                                <option >selete installer</option>
                                 @foreach($users as $res)
                                 <option @if(optional($sale)->installer_id===$res->id) selected @endif value="{{$res->id}}">{{$res->name}}</option>
                                 @endforeach

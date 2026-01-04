@@ -25,7 +25,7 @@ class SaleController extends Controller
         if (User::checkPermission('bounce.view') == true) {
             $sales = DB::table('sales')
                 ->join('users as sallers', 'sallers.id', 'sales.saller_id')
-                ->join('users as installers', 'installers.id', 'sales.installer_id')
+                ->leftjoin('users as installers', 'installers.id', 'sales.installer_id')
                 ->select('sales.*', 'sallers.name as saller', 'installers.name as installer')
                 ->orderBy('file_no', 'desc');
             if (!empty($request->search)) {
@@ -88,9 +88,11 @@ class SaleController extends Controller
     public function index(Request $request)
     {
         if (User::checkPermission('sale.view') == true) {
+
+
             $sales = DB::table('sales')
                 ->join('users as sallers', 'sallers.id', 'sales.saller_id')
-                ->join('users as installers', 'installers.id', 'sales.installer_id')
+                ->leftjoin('users as installers', 'installers.id', 'sales.installer_id')
                 ->select('sales.*', 'sallers.name as saller', 'installers.name as installer')
                 ->orderBy('file_no', 'desc');
             if (!empty($request->search)) {
@@ -131,11 +133,11 @@ class SaleController extends Controller
     {
         if (User::checkPermission('sale.add') == true) {
             $sale = 0;
-           
+
             $users = User::where('type', 'crm')
                 ->where('is_active', 1)
                 ->get(['id', 'name']);
-                
+
             $installers = User::where('type', 'crm')
                 ->where('is_active', 1)
                 ->role('Installation & Training') // Spatie way
@@ -195,7 +197,11 @@ class SaleController extends Controller
                 ->where('is_active', 1)
                 ->role('Installation & Training') // Spatie way
                 ->get(['id', 'name']);
-            return view('pages.sale.create', compact('sale', 'users'));
+                $installers = User::where('type', 'crm')
+                ->where('is_active', 1)
+                ->role('Installation & Training') // Spatie way
+                ->get(['id', 'name']);
+            return view('pages.sale.create', compact('sale', 'users','installers'));
         } else {
             return Redirect()->back()->with('error', 'Sorry you can not access this page');
         }

@@ -61,7 +61,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="">Sale By</label>
                                     <select name="saller_id" class="form-control" id="">
-                                        <option>selete sale by</option>
+                                        <option value="">select sale by</option>
                                         @foreach ($users as $res)
                                             <option @if (optional($sale)->saller_id === $res->id) selected @endif
                                                 value="{{ $res->id }}">{{ $res->name }}</option>
@@ -145,7 +145,7 @@
                             <div class="form-group col-md-3">
                                 <label for="">Install By</label>
                                 <select name="installer_id" class="form-control" id="">
-                                    <option>selete installer</option>
+                                    <option value="">Select Installer</option>
                                     @foreach ($installers as $res)
                                         <option @if (optional($sale)->installer_id === $res->id) selected @endif
                                             value="{{ $res->id }}">{{ $res->name }}</option>
